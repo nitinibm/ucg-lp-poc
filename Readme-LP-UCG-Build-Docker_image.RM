@@ -1,0 +1,51 @@
+--- Instructions on how to create docker/container for UCG-LP-POC applications 
+---- Requires 3 containers (1) UCG   (2) UCG-LP-Messaging Agent.  (3) UCG-Web page to invoke LP chat window
+
+
+
+
+--- Create UCG Node-Red application --------
+
+Goto : UCG-for-POC folder
+
+-- Create Docker image:
+
+docker build --no-cache -f latest/Dockerfile-Data-In-Container -t nitinkul/nitinkul_gdf_multiwcs_flow:v11 .
+
+--- Create container - with no volume map:
+
+docker run -it -p 7990:7990  -e NODE_ENV=production -e NODE_OPTIONS=--max_old_space_size=1024 --name nitinkul_gdf_multiwcs_flow.11 nitinkul/nitinkul_gdf_multiwcs_flow:v11
+
+--- Create container - with volume map:
+
+docker run -it -v /Users/nitinkul/Documents/nitinkulData-Dev/Docker/Dev/supportingFiles:/usr/src/node-red/keyfiles   -v /Users/nitinkul/Documents/nitinkulData-Dev/Docker/Dev/logs:/usr/src/node-red/logs -p 7990:7990  -e NODE_ENV=production -e NODE_OPTIONS=--max_old_space_size=1024 --name nitinkul_gdf_multiwcs_flow.11 nitinkul/nitinkul_gdf_multiwcs_flow:v11
+
+
+
+
+-- Create Docker image for LP message Bot Agent
+
+Goto: messaging_bot_samples
+
+-- Create Docker image:
+
+docker build -t nitinkul/my_ucg_lp_agent:v01  .
+
+-- Create Docker container:
+
+docker run -it  -p 9010:9010  -e NODE_ENV=production -e NODE_OPTIONS=--max_old_space_size=1024 --name my_ucg_lp_agent.v01 nitinkul/my_ucg_lp_agent:v01
+
+
+
+-- Create Docker image for supporting web page
+
+Goto: UCG-chat-webpage
+
+-- Create Docker image:
+
+docker build -t nitinkul/my_ucg_state_farm_webpage:v01  .
+
+-- Create Docker container:
+
+docker run -it  -p 8090:8090  -e NODE_ENV=production -e NODE_OPTIONS=--max_old_space_size=1024 --name my_ucg_state_farm_webpage.v01 nitinkul/my_ucg_state_farm_webpage:v01
+

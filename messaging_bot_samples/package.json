@@ -1,0 +1,15 @@
+{
+  "name": "watson_lp",
+  "version": "1.0.0",
+  "description": "Watson LivePerson on Docker",
+  "author": "jgothan",
+  "main": "agent.js",
+  "scripts": {
+    "start": "LP_ACCOUNT=69779575 LP_USER=Bot2 node agent.js"
+  },
+  "dependencies": {
+    "node-agent-sdk": "^0.2.22",
+    "request": "^2.88.0",
+    "winston": "^2.4.4"
+  }
+}

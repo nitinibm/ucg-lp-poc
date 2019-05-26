@@ -1,0 +1,61 @@
+{
+    "name": "node-red-docker",
+    "version": "1.0.0",
+    "description": "A visual tool for wiring the Internet of Things",
+    "homepage": "http://nodered.org",
+    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/node-red/node-red-docker.git"
+    },
+    "main": "node_modules/node-red/red/red.js",
+    "scripts": {
+        "start": "node $NODE_OPTIONS node_modules/node-red/red.js -v $FLOWS"
+    },
+    "contributors": [
+        {
+            "name": "Dave Conway-Jones"
+        },
+        {
+            "name": "Nick O'Leary"
+        },
+        {
+            "name": "James Thomas"
+        }
+    ],
+    "dependencies": {
+        "node-red": "0.20.0",
+        "node-red-node-msgpack": "*",
+        "node-red-node-base64": "*",
+        "node-red-node-suncalc": "*",
+        "node-red-node-random": "*" ,
+        "cfenv": "~1.0.0",
+        "express": "4.x",
+        "body-parser": "1.x",
+        "http-shutdown": "1.2.0",
+        "node-red-bluemix-nodes": "1.1.10",
+        "node-red-node-watson": "0.7.8",
+        "node-red-node-cf-cloudant": "0.x",
+        "node-red-contrib-scx-ibmiotapp": "0.x",
+        "node-red-contrib-mssql": "0.x",
+        "node-red-contrib-ucg-mssql": "0.1.8",
+        "node-red-contrib-http-request": "0.x",
+        "ioredis": "3.1.4",
+        "ibm-watson":"4.1.1",
+        "crypto-js":"*",
+        "node-red-contrib-csvtojson" : "*",
+        "node-red-contrib-multipart-stream-encoder" : "*",
+        "node-red-contrib-git-ui" : "*",
+        "node-red-contrib-google-action-dialogflow" : "*",
+        "actions-on-google": "^2.2.0",
+       "firebase-admin": "*",
+       "firebase-functions": "^2.0.2",
+       "dialogflow": "^0.6.0",
+       "dialogflow-fulfillment": "^0.5.0",
+       "uuid" : "3.*",
+       "apiai" : "4.0.*"
+    },
+    "engines": {
+        "node": "8.*.*"
+    }
+}
