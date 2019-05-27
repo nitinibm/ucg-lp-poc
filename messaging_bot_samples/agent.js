@@ -16,7 +16,9 @@ const log = new Winston.Logger({
 
 let agent_config = {};
 try {
-    agent_config = require('./config/lp_config.js')[process.env.LP_ACCOUNT][process.env.LP_USER];
+    //agent_config = require('./config/ucg_lp_config.js')[process.env.LP_ACCOUNT][process.env.LP_USER];
+    //** Use next row for creating docker container **//
+    agent_config = require('./container_config/ucg_lp_config.js')[process.env.LP_ACCOUNT][process.env.LP_USER];
 } catch (ex) {
     log.warn(`[agent.js] Error loading config: ${ex}`)
 }
@@ -163,7 +165,8 @@ agent.on(Bot.const.CONTENT_NOTIFICATION, event => {
              log.info(event);
              log.info("SOE Endpoint---> "+agent_config.soeEndPoint);
              log.info("--------------event message end-------------------------->");
-
+             var bot_logo_url = agent_config.botLogo;
+             console.log(bot_logo_url);
              request.post({
                 url:     agent_config.soeEndPoint,
                 form:    { dialogId: event.dialogId, utterance: event.message }
@@ -190,22 +193,25 @@ agent.on(Bot.const.CONTENT_NOTIFICATION, event => {
                         'elements': [
                             {
                                 'type': 'text',
-                                'text': 'Watson-Test',
+                                'text': 'Watson',
                                 'tooltip': 'text tooltip',
                                 'style': {
                                     'bold': true,
                                     'size': 'small'
                                 }
                             },
+                            
                             {
                                 "type": "image",
-                                "url": "https://s3-us-west-2.amazonaws.com/slack-files2/bot_icons/2018-11-02/470054445840_48.png",
+                                "url" : agent_config.botLogo,
+                                //"url": "https://s3-us-west-2.amazonaws.com/slack-files2/bot_icons/2018-11-02/470054445840_48.png",
                                 //"url": "https://ibm.box.com/s/tzbhpqft3u47ehmi05uth7qv6jnye6lh",
                                 "tooltip": "image tooltip",
                                 "click": {
                                   
                                 }
-                              },
+
+                              }, 
                             {
                                 'type': 'text',
                                 'text': new String(watsonResponse.output.text),

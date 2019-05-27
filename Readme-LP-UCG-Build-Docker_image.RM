@@ -3,6 +3,7 @@
 
 
 
+================================== Begin Instruction to create UCG Node-Red application =========================
 
 --- Create UCG Node-Red application --------
 
@@ -20,26 +21,35 @@ docker run -it -p 7990:7990  -e NODE_ENV=production -e NODE_OPTIONS=--max_old_sp
 
 docker run -it -v /Users/nitinkul/Documents/nitinkulData-Dev/Docker/Dev/supportingFiles:/usr/src/node-red/keyfiles   -v /Users/nitinkul/Documents/nitinkulData-Dev/Docker/Dev/logs:/usr/src/node-red/logs -p 7990:7990  -e NODE_ENV=production -e NODE_OPTIONS=--max_old_space_size=1024 --name nitinkul_gdf_multiwcs_flow.11 nitinkul/nitinkul_gdf_multiwcs_flow:v11
 
+================================== End Instruction to create UCG Node-Red application =========================
 
 
-
+================================== Begin Instruction to create Docker image for LP message Bot Agent =========================
 -- Create Docker image for LP message Bot Agent
+
+Note: LP container requires volume mapping with container, this is to keep config file outside of container on NFS.
+      Create a folder on NFS and store "ucg_lp_config.js" in that folder.  
+      e.g. I have created folder  "/Users/nitinkul/Documents/ucg_lp_config_dir", to store "ucg_lp_config.js" file.
+      While creating container, this folder is mapped to "/usr/src/container_config" folder of the container.
+
 
 Goto: messaging_bot_samples
 
 -- Create Docker image:
 
-docker build -t nitinkul/my_ucg_lp_agent:v01  .
+docker build -t nitinkul/my_ucg_lp_agent:v02  .
 
 -- Create Docker container:
 
-docker run -it  -p 9010:9010  -e NODE_ENV=production -e NODE_OPTIONS=--max_old_space_size=1024 --name my_ucg_lp_agent.v01 nitinkul/my_ucg_lp_agent:v01
+docker run -it  -p 9010:9010  -v /Users/nitinkul/Documents/ucg_lp_config_dir:/usr/src/container_config -e NODE_ENV=production -e NODE_OPTIONS=--max_old_space_size=1024 --name my_ucg_lp_agent.v02 nitinkul/my_ucg_lp_agent:v02
 
 
+================================== End Instruction to create Docker image for LP message Bot Agent =========================
 
--- Create Docker image for supporting web page
+================================== Begin Instruction to Docker image for supporting web page ===============================
 
-Goto: UCG-chat-webpage
+
+Goto to the folder : UCG-chat-webpage
 
 -- Create Docker image:
 
@@ -48,4 +58,6 @@ docker build -t nitinkul/my_ucg_state_farm_webpage:v01  .
 -- Create Docker container:
 
 docker run -it  -p 8090:8090  -e NODE_ENV=production -e NODE_OPTIONS=--max_old_space_size=1024 --name my_ucg_state_farm_webpage.v01 nitinkul/my_ucg_state_farm_webpage:v01
+
+================================== End Instruction to Docker image for supporting web page ==================================
 
